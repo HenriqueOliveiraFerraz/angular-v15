@@ -7,22 +7,7 @@
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
-$typografy-config: mat.define-typography-config(
-  $font-family: var(--font-family),
-  $display-4: mat.define-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
-  $display-3: mat.define-typography-level(56px, 56px, 400, $letter-spacing: -0.02em),
-  $display-2: mat.define-typography-level(45px, 48px, 400, $letter-spacing: -0.005em),
-  $display-1: mat.define-typography-level(34px, 40px, 400),
-  $headline:  mat.define-typography-level(96px, 96px, lighter, $letter-spacing: -0.5px),
-  $title: mat.define-typography-level(60px, 60px, lighter, $letter-spacing: -0.5px),
-  $subheading-2: mat.define-typography-level(48px, 48px, normal, $letter-spacing: 0px),
-  $subheading-1: mat.define-typography-level(34px, 34px, normal, $letter-spacing: 0.25px),
-  $body-2: mat.define-typography-level(32px, 32px, normal, $letter-spacing: 0px),
-  $body-1: mat.define-typography-level(29px, 29px, normal, $letter-spacing: 0px),
-  $caption: mat.define-typography-level(12px, 20px, 400),
-);
-
-@include mat.core($typografy-config);
+@include mat.core();
 
 // Create a base theme without color.
 // This will globally set the density and typography for all future color themes.

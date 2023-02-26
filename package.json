@@ -8,6 +8,7 @@
     "watch": "ng build --watch -c development",
     "test": "ng test",
     "lint": "ng lint",
+    "start:d:basic": "npx ng serve -c development --project basic-template",
     "format:c": "npx prettier \"**/src/**/*.{js,jsx,ts,tsx,html,css,scss}\" --check",
     "format:w": "npx prettier \"**/src/**/*.{js,jsx,ts,tsx,html,css,scss}\" --write"
   },
