@@ -5,4 +5,5 @@ public
 dist
 coverage
 polyfills.ts
+theme.scss
 test.ts

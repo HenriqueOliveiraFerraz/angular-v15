@@ -1,40 +1,115 @@
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
-// Plus imports for other components in your app.
-
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat.core();
-
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$basic-template-primary: mat.define-palette(mat.$indigo-palette);
-$basic-template-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
-$basic-template-warn: mat.define-palette(mat.$red-palette);
-
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$basic-template-theme: mat.define-light-theme(
-  (
-    color: (
-      primary: $basic-template-primary,
-      accent: $basic-template-accent,
-      warn: $basic-template-warn,
-    ),
-  )
-);
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($basic-template-theme);
-
 /* You can add global styles to this file, and also import other style files */
+:root {
+  //Typography
+  --font-family: Roboto, 'Helvetica Neue', sans-serif;
+
+  //Auxiliaries
+  --dark-primary-text: rgba(black, 0.87);
+  --dark-secondary-text: rgba(black, 0.54);
+  --dark-disabled-text: rgba(black, 0.38);
+  --dark-dividers: rgba(black, 0.12);
+  --dark-focused: rgba(black, 0.12);
+  --light-primary-text: white;
+  --light-secondary-text: rgba(white, 0.7);
+  --light-disabled-text: rgba(white, 0.5);
+  --light-dividers: rgba(white, 0.12);
+  --light-focused: rgba(white, 0.12);
+
+  //Primary colors
+  --primary: #00487c;
+  --primary-50: #e0f2fa;
+  --primary-100: #b0def1;
+  --primary-200: #7ec9e8;
+  --primary-300: #4fb4de;
+  --primary-400: #2fa5d8;
+  --primary-500: #1396d2;
+  --primary-600: #0e89c5;
+  --primary-700: #0677b2;
+  --primary-800: #05679e;
+  --primary-900: #00487c;
+  --on-primary: var(--light-primary-text);
+
+  //Secondary colors
+  --accent: #8be8cb;
+  --accent-50: #e3f9f3;
+  --accent-100: #baf0df;
+  --accent-200: #8be8cb;
+  --accent-300: #5fdcb6;
+  --accent-400: #47d1a6;
+  --accent-500: #3ec698;
+  --accent-600: #38b78a;
+  --accent-700: #32a57a;
+  --accent-800: #2c946c;
+  --accent-900: #24764f;
+  --on-accent: var(--dark-secondary-text);
+
+  //Warn/Error colors
+  --warn: #df2935;
+  --warn-50: #ffebef;
+  --warn-100: #ffced5;
+  --warn-200: #f59b9e;
+  --warn-300: #ee7479;
+  --warn-400: #fa5156;
+  --warn-500: #ff3d3c;
+  --warn-600: #f1343c;
+  --warn-700: #df2935;
+  --warn-800: #d2212e;
+  --warn-900: #c40e21;
+  --on-warn: var(--dark-primary-text);
+
+  //Success
+  --success: #00bf86;
+  --success-50: #e3f6ed;
+  --success-100: #bae8d3;
+  --success-200: #8cd9b7;
+  --success-300: #53cb9b;
+  --success-400: #00bf86;
+  --success-500: #00b370;
+  --success-600: #00a465;
+  --success-700: #009258;
+  --success-800: #00804b;
+  --success-900: #006135;
+  --on-success: var(--dark-primary-text);
+
+  //Warning
+  --warning: #ffbf36;
+  --warning-50: #fffde7;
+  --warning-100: #fff9c5;
+  --warning-200: #fff49e;
+  --warning-300: #ffef78;
+  --warning-400: #ffea59;
+  --warning-500: #ffe53c;
+  --warning-600: #ffd73d;
+  --warning-700: #ffbf36;
+  --warning-800: #fca82f;
+  --warning-900: #f77f24;
+  --on-warning: var(--dark-primary-text);
+
+  @each $name in (warn, success, warning) {
+    $hue: 50;
+
+    @while $hue <= 900 {
+      @if $hue <= 500 {
+        --on-#{$name}-#{$hue}: var(--dark-primary-text);
+      } @else {
+        --on-#{$name}-#{$hue}: var(--light-primary-text);
+      }
+
+      @if $hue == 50 {
+        $hue: $hue + 50;
+      } @else {
+        $hue: $hue + 100;
+      }
+    }
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
 
 html,
 body {
@@ -42,5 +117,5 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: var(--font-family);
 }

@@ -1,0 +1,126 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+@use "sass:map";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+$typografy-config: mat.define-typography-config(
+  $font-family: var(--font-family),
+  $display-4: mat.define-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
+  $display-3: mat.define-typography-level(56px, 56px, 400, $letter-spacing: -0.02em),
+  $display-2: mat.define-typography-level(45px, 48px, 400, $letter-spacing: -0.005em),
+  $display-1: mat.define-typography-level(34px, 40px, 400),
+  $headline:  mat.define-typography-level(96px, 96px, lighter, $letter-spacing: -0.5px),
+  $title: mat.define-typography-level(60px, 60px, lighter, $letter-spacing: -0.5px),
+  $subheading-2: mat.define-typography-level(48px, 48px, normal, $letter-spacing: 0px),
+  $subheading-1: mat.define-typography-level(34px, 34px, normal, $letter-spacing: 0.25px),
+  $body-2: mat.define-typography-level(32px, 32px, normal, $letter-spacing: 0px),
+  $body-1: mat.define-typography-level(29px, 29px, normal, $letter-spacing: 0px),
+  $caption: mat.define-typography-level(12px, 20px, 400),
+);
+
+@include mat.core($typografy-config);
+
+// Create a base theme without color.
+// This will globally set the density and typography for all future color themes.
+@include mat.all-component-themes((
+  color: null,
+  density: 0,
+));
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+
+// Generate Primary, Accent, Warn, Success and Warning palettes
+$palettes: ();
+@each $name in (primary, accent, warn, success, warning) {
+  $palettes: map.merge($palettes, (#{$name}: (
+    50: var(--#{$name}-50),
+    100: var(--#{$name}-100),
+    200: var(--#{$name}-200),
+    300: var(--#{$name}-300),
+    400: var(--#{$name}-400),
+    500: var(--#{$name}-500),
+    600: var(--#{$name}-600),
+    700: var(--#{$name}-700),
+    800: var(--#{$name}-800),
+    900: var(--#{$name}-900),
+    contrast: (
+      50: var(--on-#{$name}-50),
+      100: var(--on-#{$name}-100),
+      200: var(--on-#{$name}-200),
+      300: var(--on-#{$name}-300),
+      400: var(--on-#{$name}-400),
+      500: var(--on-#{$name}-500),
+      600: var(--on-#{$name}-600),
+      700: var(--on-#{$name}-700),
+      800: var(--on-#{$name}-800),
+      900: var(--on-#{$name}-900)
+    ),
+    default: var(--#{$name}),
+    lighter: var(--#{$name}-100),
+    darker: var(--#{$name}-700),
+    text: var(--#{$name}),
+    default-contrast: var(--on-#{$name}),
+    lighter-contrast: var(--on-#{$name}-100),
+    darker-contrast: var(--on-#{$name}-700)
+  )));
+}
+
+// Generate Angular Material themes. Since we are using CSS Custom Properties,
+// we don't have to generate a separate Angular Material theme for each color
+// set. We can just create one light and one dark theme and then switch the
+// CSS Custom Properties to dynamically switch the colors.
+body.light,
+body .light {
+  $light-theme: mat.define-light-theme((color: ($palettes)));
+  $primary-light-palette: map-get($light-theme, primary);
+  $accent-light-palette: map-get($light-theme, accent);
+  $warn-light-palette: map-get($light-theme, warn);
+  $success-light-palette: map-get($light-theme, success);
+  $warning-light-palette: map-get($light-theme, warning);
+
+  // Use all-component-colors to only generate the colors
+  @include mat.all-component-colors($light-theme);
+
+  $hue: 50;
+
+  @each $name in (warn, success, warning) {
+    @while $hue <= 900 {
+      .mat-snack-bar-container.snack-bar-#{$name}-#{$hue} {
+        color: var(--on-#{$name}-#{$hue});
+        background: var(--#{$name}-#{$hue});
+      
+        .mat-simple-snackbar-action {
+          color: var(--on-#{$name}-#{$hue});
+        }
+      }
+
+      .dialog-#{$name}-#{$hue} {
+        #app-component-generic-dialog.mat-dialog-container {
+          color: var(--on-#{$name}-#{$hue});
+          background: var(--#{$name}-#{$hue});
+        }
+      }
+
+      @if $hue == 50 {
+        $hue: $hue + 50;
+      } @else {
+        $hue: $hue + 100;
+      }
+    }
+
+    $hue: 50;
+  }
+}
+
+body.dark,
+body .dark {
+  $dark-theme: mat.define-dark-theme((color: ($palettes)));
+
+  // Use all-component-colors to only generate the colors
+  @include mat.all-component-colors($dark-theme);
+}
