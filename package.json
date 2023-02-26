@@ -5,8 +5,11 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "watch": "ng build --watch -c development",
+    "test": "ng test",
+    "lint": "ng lint",
+    "format:c": "npx prettier \"**/src/**/*.{js,jsx,ts,tsx,html,css,scss}\" --check",
+    "format:w": "npx prettier \"**/src/**/*.{js,jsx,ts,tsx,html,css,scss}\" --write"
   },
   "private": true,
   "dependencies": {
@@ -24,11 +27,19 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.2.0",
+    "@angular-eslint/builder": "15.2.1",
+    "@angular-eslint/eslint-plugin": "15.2.1",
+    "@angular-eslint/eslint-plugin-template": "15.2.1",
+    "@angular-eslint/schematics": "15.2.1",
+    "@angular-eslint/template-parser": "15.2.1",
     "@angular/cli": "~15.2.0",
     "@angular/compiler-cli": "^15.2.0",
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
     "@types/jasmine": "~4.3.0",
+    "@typescript-eslint/eslint-plugin": "5.48.2",
+    "@typescript-eslint/parser": "5.48.2",
+    "eslint": "^8.33.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.3",
