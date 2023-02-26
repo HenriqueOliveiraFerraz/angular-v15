@@ -5,9 +5,14 @@
   ],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": [
+          "**/projects/basic-template/tsconfig.app.json",
+          "**/projects/basic-template/tsconfig.spec.json"
+        ],
+        "createDefaultProgram": true
+      },
       "rules": {
         "@angular-eslint/directive-selector": [
           "error",
